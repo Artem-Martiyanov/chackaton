@@ -11,8 +11,6 @@ const $q = useQuasar();
 
 const file = ref<File | null>(null);
 const isLoading = ref<boolean>(false);
-
-
 const resultFileUrl = ref<string>('');
 
 
@@ -26,7 +24,6 @@ const formSubmitHandler = async () => {
   }
 
   try {
-
     isLoading.value = true;
 
     const baseURL: string = import.meta.env.VITE_API_URL;
@@ -41,7 +38,7 @@ const formSubmitHandler = async () => {
     });
 
 
-    const response = await fetch(`${baseURL}/upload`, {
+    const response = await fetch(`${baseURL}/file/upload`, {
       method: 'POST',
       body: data
     });
@@ -57,12 +54,10 @@ const formSubmitHandler = async () => {
 
     console.log(resultData);
   } catch (e) {
-
     $q.notify({
       message: `Братья потерпели неудачу... Извините...сь (${JSON.stringify(e)})`,
       color: 'negative'
     });
-
   } finally {
     isLoading.value = false;
   }
