@@ -87,10 +87,14 @@ const formSubmitHandler = async () => {
     <q-form class="form column" @submit.prevent="formSubmitHandler" v-else>
       <q-uploader
         class="my-text-green"
-        label="Загрузите фалй с датасетом"
+        label="Загрузите файл с датасетом"
         @added="(files) => (file = files[0])"
         accept=".csv"
         :disable="isLoading"
+        color="black"
+        text-color="accent"
+        dark
+
       />
       <q-btn
         label="Отправить"
