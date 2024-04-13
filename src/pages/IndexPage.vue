@@ -42,23 +42,18 @@ const formSubmitHandler = async () => {
       body: data
     });
 
-    $q.notify({
-      message: 'Братский успешный успех!',
-      color: 'positive'
-    });
-
 
     const resultData = await response.json();
     if (resultData?.url) {
+      $q.notify({
+        message: 'Братский успешный успех!',
+        color: 'positive'
+      });
       resultFileUrl.value = resultData.url;
-    } else {
-      throw new Error('Ошибка на стороне бэкенда');
     }
   } catch (e) {
     $q.notify({
-      message: `Братья потерпели неудачу... Извините...сь (${JSON.stringify(
-        e
-      )})`,
+      message: 'Братья потерпели неудачу... Извинитесь',
       color: 'negative'
     });
   } finally {
