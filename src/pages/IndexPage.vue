@@ -46,16 +46,20 @@ const formSubmitHandler = async () => {
       body: data
     });
 
-    if (response.ok) {
-      $q.notify({
-        message: 'Братский успешный успех!',
-        color: 'positive'
-      });
-    }
+    $q.notify({
+      message: 'Братский успешный успех!',
+      color: 'positive'
+    });
+
+    console.log(response);
+
+    const resultData = await response.json();
+
+    console.log(resultData);
   } catch (e) {
 
     $q.notify({
-      message: 'Братья потерпели неудачу... Извините...сь',
+      message: `Братья потерпели неудачу... Извините...сь (${JSON.stringify(e)})`,
       color: 'negative'
     });
 
@@ -77,9 +81,10 @@ const formSubmitHandler = async () => {
       <q-uploader
         label="Загрузите фалй с датасетом"
         @added="(files) => file = files[0]"
+        accept=".csv"
         :disable="isLoading"
       />
-      <q-btn label="Отправить" color="primary" :loading="isLoading" type="submit" :disable="!file"/>
+      <q-btn label="Отправить" color="primary" :loading="isLoading" type="submit" :disable="!file" />
     </q-form>
   </q-page>
 </template>
