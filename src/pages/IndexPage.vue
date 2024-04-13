@@ -64,12 +64,14 @@ const formSubmitHandler = async () => {
 
 <template>
   <q-page class="main-page row items-center justify-evenly">
-    <section class="result" v-if="resultFileUrl">
+    <section class="result" v-if="!resultFileUrl" style="background: #232323; padding: 30px; border-radius: 30px">
       <div>
         <q-btn
           :href="resultFileUrl"
+          text-color="accent"
           label="Скачать результат"
           target="_blank"
+          outline
           icon="download"
           color="primary"
         />
@@ -77,7 +79,10 @@ const formSubmitHandler = async () => {
       <q-btn
         label="Отправить ещё раз"
         icon="refresh"
+        text-color="accent"
         dense
+        color="secondary"
+        outline
         @click="resultFileUrl = ''"
       />
     </section>
