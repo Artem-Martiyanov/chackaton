@@ -36,6 +36,9 @@ const formSubmitHandler = async () => {
 
     const response = await fetch(`${baseURL}/file/upload`, {
       method: 'POST',
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      },
       body: data
     });
 
