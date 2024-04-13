@@ -47,11 +47,15 @@ const formSubmitHandler = async () => {
       color: 'positive'
     });
 
-    console.log(response);
 
     const resultData = await response.json();
+    if (resultData?.url) {
+      resultFileUrl.value = resultData.url;
+    } else {
+      throw new Error('Ошибка на стороне бэкенда');
+    }
 
-    console.log(resultData);
+
   } catch (e) {
     $q.notify({
       message: `Братья потерпели неудачу... Извините...сь (${JSON.stringify(
