@@ -36,9 +36,6 @@ const formSubmitHandler = async () => {
 
     const response = await fetch(`${baseURL}/file/upload`, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'multipart/form-data'
-      },
       body: data
     });
 
@@ -50,6 +47,7 @@ const formSubmitHandler = async () => {
         color: 'positive'
       });
       resultFileUrl.value = resultData.url;
+      file.value = null;
     }
   } catch (e) {
     $q.notify({
