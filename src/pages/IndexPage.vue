@@ -54,8 +54,6 @@ const formSubmitHandler = async () => {
     } else {
       throw new Error('Ошибка на стороне бэкенда');
     }
-
-
   } catch (e) {
     $q.notify({
       message: `Братья потерпели неудачу... Извините...сь (${JSON.stringify(
@@ -71,7 +69,7 @@ const formSubmitHandler = async () => {
 
 <template>
   <q-page class="main-page row items-center justify-evenly">
-    <section class="result" v-if="resultFileUrl" style="background: #232323; padding: 30px; border-radius: 30px">
+    <section class="result" v-if="resultFileUrl">
       <div>
         <q-btn
           :href="resultFileUrl"
@@ -135,6 +133,9 @@ const formSubmitHandler = async () => {
   display: flex;
   flex-direction: column;
   gap: 15px;
+  background: #232323;
+  padding: 30px;
+  border-radius: 30px;
 }
 
 .visually-hidden {
