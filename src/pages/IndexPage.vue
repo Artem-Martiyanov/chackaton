@@ -30,7 +30,7 @@ const formSubmitHandler = async () => {
     data.append('file', file.value);
 
     $q.notify({
-      message: 'Файл уже обрабатывается...',
+      message: 'Уже отправляем :)',
       color: 'info'
     });
 
