@@ -64,7 +64,7 @@ const formSubmitHandler = async () => {
 
 <template>
   <q-page class="main-page row items-center justify-evenly">
-    <section class="result" v-if="!resultFileUrl" style="background: #232323; padding: 30px; border-radius: 30px">
+    <section class="result" v-if="resultFileUrl" style="background: #232323; padding: 30px; border-radius: 30px">
       <div>
         <q-btn
           :href="resultFileUrl"
