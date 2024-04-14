@@ -3,8 +3,14 @@ import { ref } from 'vue';
 import { useQuasar } from 'quasar';
 
 defineOptions({
-  name: 'IndexPage'
+  name: 'IndexPage',
 });
+
+function getRandomInt(min: number, max: number) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
 
 const $q = useQuasar();
 
@@ -12,17 +18,36 @@ const file = ref<File | null>(null);
 const isLoading = ref<boolean>(false);
 const resultFileUrl = ref<string>('');
 
+const progress = ref<number>(0);
+const isProgressLoading = ref<boolean>(false);
+
+setInterval(() => {
+  if (!isProgressLoading.value || progress.value >= 0.95) return;
+  const delta = getRandomInt(1, 9) / 1000;
+  progress.value += delta;
+}, 500);
+
+const startLoading = () => {
+  isProgressLoading.value = true;
+};
+
+const stopLoading = () => {
+  isProgressLoading.value = false;
+  progress.value = 0;
+};
+
 const formSubmitHandler = async () => {
   if (!file.value) {
     $q.notify({
       message: 'Ошибка! Не удалось найти файл',
-      color: 'negative'
+      color: 'negative',
     });
     return;
   }
 
   try {
     isLoading.value = true;
+    startLoading();
 
     const baseURL: string = import.meta.env.VITE_API_URL;
 
@@ -31,20 +56,19 @@ const formSubmitHandler = async () => {
 
     $q.notify({
       message: 'Уже отправляем :)',
-      color: 'info'
+      color: 'info',
     });
 
     const response = await fetch(`${baseURL}/file/upload`, {
       method: 'POST',
-      body: data
+      body: data,
     });
-
 
     const resultData = await response.json();
     if (resultData?.url) {
       $q.notify({
         message: 'Братский успешный успех!',
-        color: 'positive'
+        color: 'positive',
       });
       resultFileUrl.value = resultData.url;
       file.value = null;
@@ -52,10 +76,11 @@ const formSubmitHandler = async () => {
   } catch (e) {
     $q.notify({
       message: 'Братья потерпели неудачу... Извинитесь',
-      color: 'negative'
+      color: 'negative',
     });
   } finally {
     isLoading.value = false;
+    stopLoading();
   }
 };
 </script>
@@ -92,9 +117,18 @@ const formSubmitHandler = async () => {
         accept=".csv"
         :disable="isLoading"
         color="black"
+        hide-upload-btn
         text-color="accent"
         dark
-
+      />
+      <span class="my-text-green" v-if="isProgressLoading">
+        Колдуем... {{ (progress * 100).toFixed(1) }} %
+      </span>
+      <q-linear-progress
+        color="accent"
+        :value="progress"
+        rounded
+        v-if="isProgressLoading"
       />
       <q-btn
         label="Отправить"

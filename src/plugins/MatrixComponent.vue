@@ -1,17 +1,13 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
 
-
-
 const width = document.documentElement.clientWidth;
 const height = document.documentElement.clientHeight;
-
 
 const yPositions = Array(300).fill(0);
 const canvas = ref<HTMLCanvasElement | null>(null);
 
 onMounted(() => {
-
   if (!canvas.value) return;
 
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
@@ -24,7 +20,7 @@ onMounted(() => {
     ctx.font = '10pt Georgia';
     yPositions.forEach((y, index) => {
       const text = String.fromCharCode(1e2 + Math.random() * 33);
-      const x = (index * 10) + 10;
+      const x = index * 10 + 10;
       ctx.fillText(text, x, y);
       if (y > 100 + Math.random() * 1e4) {
         yPositions[index] = 0;
@@ -41,19 +37,12 @@ onMounted(() => {
     Game_Interval = setInterval(draw, 70);
   };
 
-
   runMatrix();
 
   setInterval(draw, 200);
 });
-
-
 </script>
 
 <template>
-
   <canvas class="canvas" ref="canvas" :width="width" :height="height" />
-
-
 </template>
-

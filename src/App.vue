@@ -8,9 +8,7 @@ defineOptions({
   <router-view />
 </template>
 
-
 <style lang="scss">
-
 .my-text-green {
   color: $accent;
 }
@@ -18,5 +16,4 @@ defineOptions({
 .bg-black {
   background: #000;
 }
-
 </style>
